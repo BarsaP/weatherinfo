@@ -10,7 +10,7 @@ import com.nt.weatherInfo.entity.WeatherInfo;
 
 @Service
 public class WeatherService {
-	private final String apiKey = "37a9262c52308c32ca18ee609c49cb82";
+	private final String apiKey = "your_api_key";
 
     public WeatherInfo getWeatherByLatLong(double lat, double lon, String date) {
         String weatherUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=metric";
