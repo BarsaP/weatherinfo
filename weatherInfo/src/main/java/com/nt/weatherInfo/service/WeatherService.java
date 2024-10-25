@@ -14,7 +14,6 @@ public class WeatherService {
 
     public WeatherInfo getWeatherByLatLong(double lat, double lon, String date) {
         String weatherUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=metric";
-        //https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/414004/2020-06-20 + "?unitGroup=metric&key=" + apiKey;
         
         //for debug
         System.out.println("Weather URL: " + weatherUrl);
@@ -25,24 +24,10 @@ public class WeatherService {
         // Parse the response to extract weather data for the required date
         JSONObject jsonObject = new JSONObject(response.getBody());
         JSONArray listArray = jsonObject.getJSONArray("list");
-//     // Get daily weather (One Call API gives an array for daily weather)
-//        JSONArray dailyArray = jsonObject.getJSONArray("daily");
-//        
-//     // Find the appropriate day's weather (e.g., the first one for today)
-//        JSONObject dailyWeather = dailyArray.getJSONObject(0);
-//        JSONArray weatherArray = jsonObject.getJSONArray("weather");
-//        JSONObject weatherObject = weatherArray.getJSONObject(0);
-//
-//        String description = weatherObject.getString("description");
-//        double temperature = jsonObject.getJSONObject("temp").getDouble("day");
-//        double humidity = dailyWeather.getDouble("humidity");
-//        double windSpeed = dailyWeather.getDouble("wind");
-//        // Save the weather data to the database
-//        return new WeatherInfo(description, temperature, humidity, windSpeed); // Parse the weather info
         JSONObject dailyWeather = null;
         for (int i = 0; i < listArray.length(); i++) {
             JSONObject weatherItem = listArray.getJSONObject(i);
-            String forecastDate = weatherItem.getString("dt_txt").split(" ")[0]; // Extract date part
+            String forecastDate = weatherItem.getString("dt_txt").split(" ")[0];
             
             if (forecastDate.equals(date)) {
                 dailyWeather = weatherItem;

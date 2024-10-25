@@ -17,7 +17,7 @@ public class GeocodingService {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.getForEntity(geocodingUrl, String.class);
         // Parse the response to get lat and lon
-        // Example: {"lat":18.5204,"lon":73.8567}
+        
         JSONObject jsonObject = new JSONObject(response.getBody());
         return new LatLng(jsonObject.getDouble("lat"), jsonObject.getDouble("lon"));
     }
